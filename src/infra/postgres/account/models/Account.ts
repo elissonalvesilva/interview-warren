@@ -1,4 +1,4 @@
-import { Customer } from '@/infra/mysql/customer/entities/Customer'
+import { Customer } from '@/infra/postgres/customer/models/Customer'
 import {
   Entity,
   Column,

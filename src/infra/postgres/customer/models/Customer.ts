@@ -1,4 +1,4 @@
-import { Account } from '@/infra/mysql/account/entities/Account'
+import { Account } from '@/infra/postgres/account/models/Account'
 import {
   Entity,
   Column,

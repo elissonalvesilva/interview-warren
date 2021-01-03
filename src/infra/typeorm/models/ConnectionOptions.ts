@@ -1,0 +1,18 @@
+import { AuroraDataApiPostgresConnectionOptions } from 'typeorm/driver/aurora-data-api-pg/AuroraDataApiPostgresConnectionOptions'
+import { AuroraDataApiConnectionOptions } from 'typeorm/driver/aurora-data-api/AuroraDataApiConnectionOptions'
+import { BetterSqlite3ConnectionOptions } from 'typeorm/driver/better-sqlite3/BetterSqlite3ConnectionOptions'
+import { CockroachConnectionOptions } from 'typeorm/driver/cockroachdb/CockroachConnectionOptions'
+import { CordovaConnectionOptions } from 'typeorm/driver/cordova/CordovaConnectionOptions'
+import { ExpoConnectionOptions } from 'typeorm/driver/expo/ExpoConnectionOptions'
+import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions'
+import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions'
+import { NativescriptConnectionOptions } from 'typeorm/driver/nativescript/NativescriptConnectionOptions'
+import { OracleConnectionOptions } from 'typeorm/driver/oracle/OracleConnectionOptions'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
+import { ReactNativeConnectionOptions } from 'typeorm/driver/react-native/ReactNativeConnectionOptions'
+import { SapConnectionOptions } from 'typeorm/driver/sap/SapConnectionOptions'
+import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions'
+import { SqljsConnectionOptions } from 'typeorm/driver/sqljs/SqljsConnectionOptions'
+import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions'
+
+export declare type ConnectionOptions = MysqlConnectionOptions | PostgresConnectionOptions | CockroachConnectionOptions | SqliteConnectionOptions | SqlServerConnectionOptions | SapConnectionOptions | OracleConnectionOptions | CordovaConnectionOptions | NativescriptConnectionOptions | ReactNativeConnectionOptions | SqljsConnectionOptions | MongoConnectionOptions | AuroraDataApiConnectionOptions | AuroraDataApiPostgresConnectionOptions | ExpoConnectionOptions | BetterSqlite3ConnectionOptions
