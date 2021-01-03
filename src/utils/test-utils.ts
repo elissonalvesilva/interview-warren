@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'test'
 
 beforeAll(async () => {
   const t0 = Date.now()
-  const connection = await PostgresHelper.connect()
+  const connection = await PostgresHelper.connect('test')
   const connectTime = Date.now()
   await connection.runMigrations()
   const migrationTime = Date.now()
@@ -19,5 +19,5 @@ beforeAll(async () => {
   )
 })
 afterAll(async () => {
-  await setupServer.connectionPostgres.close()
+  await PostgresHelper.disconnect()
 })
