@@ -18,7 +18,6 @@ export class DoDepositDatabaseRepository implements DoDepositRepository {
         accountNumber: deposit.accountDestination
       }
     })
-
     const actualValue = lastValue.balance + deposit.value
     await this.ormRepository
       .createQueryBuilder()
