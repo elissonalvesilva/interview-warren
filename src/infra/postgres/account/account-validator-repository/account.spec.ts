@@ -16,13 +16,17 @@ const makeSut = (): AccountValidatorDatabaseRepository => {
   return new AccountValidatorDatabaseRepository()
 }
 
-describe('Account Validator Repository', () => {
+describe('Account Validator Database Repository', () => {
   beforeAll(async () => {
     await PostgresHelper.connect()
   })
 
   afterAll(async () => {
     await PostgresHelper.disconnect()
+  })
+
+  beforeEach(async () => {
+    await PostgresHelper.clear()
   })
 
   it('Should return true if exist a account', async () => {
