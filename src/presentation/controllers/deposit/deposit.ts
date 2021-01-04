@@ -1,9 +1,12 @@
+import { DoDeposit } from '@/domain/usecases/deposit/DoDeposit'
 import { badRequest, serverError, successResponse } from '@/presentation/helpers/http-helper'
 import { HttpResponse, Controller, AccountValidator } from '@/presentation/protocols'
 import { MissingParamError, InvalidParamError } from '@/presentation/erros'
 
 export class DepositController implements Controller {
-  constructor (private readonly accountValidator: AccountValidator) {}
+  constructor (
+    private readonly accountValidator: AccountValidator,
+    private readonly doDeposit: DoDeposit) {}
 
   async handle (request: any): Promise<HttpResponse> {
     try {
@@ -40,7 +43,9 @@ export class DepositController implements Controller {
         return badRequest(new InvalidParamError('accountOrigin'))
       }
 
-      return successResponse(request.body)
+      const deposit = await this.doDeposit.deposit(request.body)
+
+      return successResponse(deposit)
     } catch (error) {
       return serverError(error)
     }
