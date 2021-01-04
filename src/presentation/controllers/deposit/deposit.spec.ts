@@ -160,6 +160,28 @@ describe('Deposit Controller', () => {
       const httResponse = await sut.handle(httpRequest)
       expect(httResponse).toEqual(badRequest(new InvalidParamError('accountDestination')))
     })
+    it('Should return 400 if account origin is invalid', async () => {
+      const { sut, accountValidatorStub } = makeSut()
+
+      jest.spyOn(accountValidatorStub, 'isValid')
+        .mockReturnValueOnce(Promise.resolve(true))
+
+      jest.spyOn(accountValidatorStub, 'isValid')
+        .mockReturnValueOnce(Promise.resolve(false))
+
+      const httpRequest = {
+        body: {
+          accountOrigin: 10000,
+          accountDestination: 2130500,
+          createdDate: new Date('2020-09-09 15:30:30'),
+          sendDate: new Date('2020-09-09 15:30:30'),
+          value: 2.45
+        }
+      }
+
+      const httResponse = await sut.handle(httpRequest)
+      expect(httResponse).toEqual(badRequest(new InvalidParamError('accountOrigin')))
+    })
     it('Should return 200 if all values is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
