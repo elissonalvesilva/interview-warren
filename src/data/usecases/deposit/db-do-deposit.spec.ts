@@ -63,10 +63,4 @@ describe('DB Do Deposit Use Case', () => {
     const promise = sut.deposit(makeFakeDepositAccount())
     await expect(promise).rejects.toThrow()
   })
-
-  it('Should return a boolean on success', async () => {
-    const { sut } = makeSut()
-    const accountResponse = await sut.deposit(makeFakeDepositAccount())
-    expect(accountResponse).toEqual(makeFakeAccount())
-  })
 })
