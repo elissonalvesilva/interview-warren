@@ -1,13 +1,13 @@
 import { AccountModel } from '@/domain/models/account/Account'
 
-export interface DoDepositModel {
-  accountOrigin: Number
-  accountDestination: Number
+export interface DoPaymentModel {
+  accountOrigin: number
+  code: number
   createdDate: Date
   sendDate: Date
   value: number
 }
 
 export interface DoDeposit {
-  deposit: (deposit: DoDepositModel) => Promise<AccountModel>
+  deposit: (deposit: DoPaymentModel) => Promise<AccountModel>
 }

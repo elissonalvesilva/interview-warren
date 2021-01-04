@@ -3,7 +3,7 @@ import { AccountValidator } from '@/presentation/protocols'
 import { MissingParamError, InvalidParamError } from '@/presentation/erros'
 import { badRequest, successResponse } from '@/presentation/helpers/http-helper'
 import { DepositController } from '@/presentation/controllers/deposit/deposit'
-import { AccountModel } from '@/domain/models/deposit/Account'
+import { AccountModel } from '@/domain/models/account/Account'
 
 const fakeDepositResponse: AccountModel = {
   id: 'abc',

@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/deposit/Account'
+import { AccountModel } from '@/domain/models/account/Account'
 import { Repository, getRepository } from 'typeorm'
 
 import { DoDepositRepository } from '@/data/protocols/do-deposit-repository'

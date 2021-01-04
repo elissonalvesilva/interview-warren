@@ -1,6 +1,6 @@
 import { DbDoDeposit } from '@/data/usecases/deposit/db-do-deposit'
 import { DoDepositRepository } from '@/data/protocols/do-deposit-repository'
-import { AccountModel } from '@/domain/models/deposit/Account'
+import { AccountModel } from '@/domain/models/account/Account'
 import { DoDepositModel } from '@/domain/usecases/deposit/DoDeposit'
 
 const makeFakeAccount = (): AccountModel => {
