@@ -13,9 +13,9 @@ services:
   postgres_tests:
     image: postgres:11
     environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
-      POSTGRES_DB: test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: db_warren_test
     ports:
       - 5433:5433
     command: -p 5433

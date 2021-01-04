@@ -1,4 +1,3 @@
-import { Customer } from '@/infra/postgres/customer/entities/Customer'
 import {
   Entity,
   Column,
@@ -8,12 +7,16 @@ import {
   ManyToOne
 } from 'typeorm'
 
+import { Customer } from '@/infra/postgres/customer/entities/Customer'
+
 @Entity('account')
 export class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
+  @Column({
+    unique: true
+  })
   accountNumber: number
 
   @Column()
@@ -28,6 +31,6 @@ export class Account {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @ManyToOne(() => Customer, customer => customer.id)
+  @ManyToOne(type => Customer, accounts => Account)
   customer: Customer
 }

@@ -1,3 +1,3 @@
 export interface AccountValidator {
-  isValid: (accountNumber: Number) => Promise<boolean>
+  isValid: (accountNumber: number) => Promise<boolean>
 }

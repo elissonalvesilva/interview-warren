@@ -1,16 +1,14 @@
-import { Connection, createConnection, getConnection } from 'typeorm'
+import { Connection, createConnection, getConnection, getConnectionOptions } from 'typeorm'
 
 export const PostgresHelper = {
-  connectionName: null as string,
-  async connect (connectionName: string = 'default'): Promise<Connection> {
-    this.connectionName = connectionName
-    const connections = await createConnection(connectionName)
-    return connections
+  async connect (connectionName: 'default' | 'test' = 'default'): Promise<Connection> {
+    const connectionOptions = await getConnectionOptions(connectionName)
+    const connection = await createConnection({ ...connectionOptions , name: 'default' })
+    return connection
   },
 
   async disconnect (): Promise<void> {
-    const connection = getConnection(this.connectionName)
-    await connection.close()
+    await getConnection().close()
   },
 
   async clear (): Promise<void> {

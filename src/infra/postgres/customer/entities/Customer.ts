@@ -26,6 +26,6 @@ export class Customer {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @OneToMany(() => Account, account => account.customer)
-  account: Account[]
+  @OneToMany(type => Account, customer => Customer)
+  accounts: Account[]
 }
