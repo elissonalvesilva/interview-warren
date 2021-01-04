@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
-    "test": "jest --passWithNoTests --noStackTrace --runInBand",
+    "test": "npm test:unit && npm test:e2e",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:unit": "npm test -- --watchAll -c jest-unit-config.js",
-    "test:integration": "npm test -- --watchAll -c jest-integration-config.js",
+    "test:unit": "jest -c jest-unit-config.js",
+    "test:e2e": "jest -c jest-integration-config.js",
     "test:ci": "npm test -- --coverage",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "release": "npm test -- && standard-version"
