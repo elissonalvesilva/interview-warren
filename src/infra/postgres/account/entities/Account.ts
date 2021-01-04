@@ -14,13 +14,13 @@ export class Account {
   id: string
 
   @Column()
-  accountNumber: Number
+  accountNumber: number
 
   @Column()
-  type: Number
+  type: number
 
   @Column()
-  balance: Number
+  balance: number
 
   @CreateDateColumn()
   createdAt: Date
