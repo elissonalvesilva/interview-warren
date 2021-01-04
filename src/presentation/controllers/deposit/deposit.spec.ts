@@ -91,7 +91,7 @@ describe('Deposit Controller', () => {
       const httResponse = await sut.handle(httpRequest)
       expect(httResponse).toEqual(badRequest(new MissingParamError('createdDate')))
     })
-    it('Should return 400 if no account origin is provided', async () => {
+    it('Should return 400 if no send date is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
         body: {
