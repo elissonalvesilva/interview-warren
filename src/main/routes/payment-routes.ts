@@ -1,7 +1,7 @@
 import { adaptRoute } from '@/main/adapter/express-routes-adapter'
 import { Router } from 'express'
-import { makeDepositController } from '@/main/factories/deposit'
+import { makePaymentController } from '@/main/factories/payment'
 
 export default (router: Router): void => {
-  router.post('/deposit', adaptRoute(makeDepositController()))
+  router.post('/payment', adaptRoute(makePaymentController()))
 }
