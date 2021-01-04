@@ -8,6 +8,6 @@ export interface DoPaymentModel {
   value: number
 }
 
-export interface DoDeposit {
+export interface DoPayment {
   deposit: (deposit: DoPaymentModel) => Promise<AccountModel>
 }
