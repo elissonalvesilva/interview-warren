@@ -34,6 +34,12 @@ export class DepositController implements Controller {
         return badRequest(new InvalidParamError('accountDestination'))
       }
 
+      const isValidAccountOrigin = await this.accountValidator.isValid(accountOrigin)
+
+      if (!isValidAccountOrigin) {
+        return badRequest(new InvalidParamError('accountOrigin'))
+      }
+
       return successResponse(request.body)
     } catch (error) {
       return serverError(error)
