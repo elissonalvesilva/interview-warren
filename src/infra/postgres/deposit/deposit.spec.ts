@@ -29,14 +29,6 @@ const makeSut = (): DoDepositDatabaseRepository => {
 }
 
 describe('Do Deposit Database Repository', () => {
-  beforeAll(async () => {
-    await PostgresHelper.connect()
-  })
-
-  afterAll(async () => {
-    await PostgresHelper.disconnect()
-  })
-
   beforeEach(async () => {
     await PostgresHelper.clear()
   })

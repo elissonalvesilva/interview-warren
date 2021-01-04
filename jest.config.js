@@ -13,5 +13,9 @@ module.exports = {
   moduleNameMapper: {
     // '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1'
-  }
+  },
+  globalSetup: './src/utils/setup-db.ts',
+  setupFilesAfterEnv: ['./src/utils/setup-test.ts'],
+  verbose: true
+
 }

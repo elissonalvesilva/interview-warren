@@ -16,15 +16,7 @@ const makeSut = (): AccountValidatorDatabaseRepository => {
   return new AccountValidatorDatabaseRepository()
 }
 
-describe('Account Validator Database Repository', () => {
-  beforeAll(async () => {
-    await PostgresHelper.connect()
-  })
-
-  afterAll(async () => {
-    await PostgresHelper.disconnect()
-  })
-
+describe.only('Account Validator Database Repository', () => {
   beforeEach(async () => {
     await PostgresHelper.clear()
   })
