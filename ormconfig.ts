@@ -4,7 +4,7 @@ import { loadEnv } from './src/utils/load-env'
 loadEnv()
 
 const DATABASE_TYPE = 'postgres'
-const DATABASE_ENTITIES = ['src/infra/postgres/**/models/**.ts']
+const DATABASE_ENTITIES = ['src/infra/postgres/**/entities/**.ts']
 
 const connectionOptions: ConnectionOptions[] = [
   {
