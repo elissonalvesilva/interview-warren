@@ -17,7 +17,7 @@ export class AccountValidatorDatabaseRepository implements AccountValidatorRepos
       }
     })
 
-    if (accountRepository) {
+    if (accountRepository.length) {
       return true
     }
     return false

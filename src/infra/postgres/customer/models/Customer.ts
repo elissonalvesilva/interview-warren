@@ -1,4 +1,3 @@
-import { Account } from '@/infra/postgres/account/models/Account'
 import {
   Entity,
   Column,
@@ -7,6 +6,8 @@ import {
   UpdateDateColumn,
   OneToMany
 } from 'typeorm'
+
+import { Account } from '@/infra/postgres/account/models/Account'
 
 @Entity('customer')
 export class Customer {

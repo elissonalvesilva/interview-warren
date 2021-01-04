@@ -1,8 +1,5 @@
-// This file is executed once in the worker before executing each test file. We
 
 import { PostgresHelper } from '@/infra/postgres/helpers/postgres-helper'
-
-// wait for the database connection and make sure to close it afterwards.
 
 process.env.NODE_ENV = 'test'
 
