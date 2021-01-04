@@ -9,5 +9,5 @@ export interface DoPaymentModel {
 }
 
 export interface DoPayment {
-  deposit: (deposit: DoPaymentModel) => Promise<AccountModel>
+  payment: (payment: DoPaymentModel) => Promise<AccountModel>
 }
