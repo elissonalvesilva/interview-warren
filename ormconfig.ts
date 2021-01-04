@@ -18,7 +18,7 @@ const connectionOptions: ConnectionOptions[] = [
     entities: DATABASE_ENTITIES,
     synchronize: true,
     // dropSchema: true,
-    logging: true
+    logging: false
   },
   {
     name: 'test',
