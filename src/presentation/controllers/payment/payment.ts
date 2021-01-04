@@ -1,10 +1,12 @@
+import { DoPayment } from '@/domain/usecases/payment/DoPayment'
 import { badRequest, serverError, successResponse } from '@/presentation/helpers/http-helper'
 import { HttpResponse, Controller, AccountValidator } from '@/presentation/protocols'
 import { MissingParamError, InvalidParamError } from '@/presentation/erros'
 
 export class PaymentController implements Controller {
   constructor (
-    private readonly accountValidator: AccountValidator) {}
+    private readonly accountValidator: AccountValidator,
+    private readonly doPayment: DoPayment) {}
 
   async handle (request: any): Promise<HttpResponse> {
     try {
@@ -33,7 +35,7 @@ export class PaymentController implements Controller {
         return badRequest(new InvalidParamError('accountOrigin'))
       }
 
-      const payment = {}
+      const payment = await this.doPayment.payment(request.body)
 
       return successResponse(payment)
     } catch (error) {
