@@ -190,7 +190,7 @@ describe('Deposit Controller', () => {
           accountDestination: 90000,
           createdDate: new Date('2020-09-09 15:30:30'),
           sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
+          value: 2.46
         }
       }
 
