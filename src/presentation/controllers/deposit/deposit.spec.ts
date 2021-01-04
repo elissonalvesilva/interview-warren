@@ -1,7 +1,28 @@
+import { DoDeposit, DoDepositModel } from '@/domain/usecases/deposit/DoDeposit'
 import { AccountValidator } from '@/presentation/protocols'
 import { MissingParamError, InvalidParamError } from '@/presentation/erros'
 import { badRequest, successResponse } from '@/presentation/helpers/http-helper'
 import { DepositController } from '@/presentation/controllers/deposit/deposit'
+import { AccountModel } from '@/domain/models/deposit/Account'
+
+const fakeDepositResponse: AccountModel = {
+  id: 'abc',
+  accountNumber: 1,
+  type: 1,
+  balance: 110,
+  createdAt: new Date('2020-01-01'),
+  updatedAt: new Date('2020-01-01')
+}
+
+const makeDoDeposit = (): DoDeposit => {
+  class DoDepositStub implements DoDeposit {
+    async deposit (deposit: DoDepositModel): Promise<AccountModel> {
+      return new Promise(resolve => resolve(fakeDepositResponse))
+    }
+  }
+
+  return new DoDepositStub()
+}
 
 const makeAccountValidator = (): AccountValidator => {
   class AccountValidatorStub implements AccountValidator {
@@ -16,12 +37,14 @@ const makeAccountValidator = (): AccountValidator => {
 interface SutType {
   sut: DepositController
   accountValidatorStub: AccountValidator
+  doDepositStub: DoDeposit
 }
 
 const makeSut = (): SutType => {
   const accountValidatorStub = makeAccountValidator()
-  const sut = new DepositController(accountValidatorStub)
-  return { sut, accountValidatorStub }
+  const doDepositStub = makeDoDeposit()
+  const sut = new DepositController(accountValidatorStub, doDepositStub)
+  return { sut, accountValidatorStub, doDepositStub }
 }
 
 describe('Deposit Controller', () => {
@@ -182,20 +205,26 @@ describe('Deposit Controller', () => {
       const httResponse = await sut.handle(httpRequest)
       expect(httResponse).toEqual(badRequest(new InvalidParamError('accountOrigin')))
     })
-    it('Should return 200 if all values is provided', async () => {
-      const { sut } = makeSut()
+    it('Should return 200 if all values is provided and it was make a deposit', async () => {
+      const { sut, doDepositStub } = makeSut()
+
+      const lastValue = 10
       const httpRequest = {
         body: {
           accountOrigin: 10000,
           accountDestination: 90000,
           createdDate: new Date('2020-09-09 15:30:30'),
           sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.46
+          value: lastValue
         }
       }
+      const actualValue = fakeDepositResponse.balance + lastValue
+      Object.assign(fakeDepositResponse, { balance: actualValue })
+
+      jest.spyOn(doDepositStub, 'deposit').mockReturnValueOnce(new Promise(resolve => resolve(fakeDepositResponse)))
 
       const httResponse = await sut.handle(httpRequest)
-      expect(httResponse).toEqual(successResponse(httpRequest.body))
+      expect(httResponse).toEqual(successResponse(fakeDepositResponse))
     })
   })
 })
