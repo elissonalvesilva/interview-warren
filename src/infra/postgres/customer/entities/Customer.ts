@@ -7,7 +7,7 @@ import {
   OneToMany
 } from 'typeorm'
 
-import { Account } from '@/infra/postgres/account/models/Account'
+import { Account } from '@/infra/postgres/account/entities/Account'
 
 @Entity('customer')
 export class Customer {

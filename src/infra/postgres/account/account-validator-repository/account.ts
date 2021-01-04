@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { Account } from '@/infra/postgres/account/models/Account'
+import { Account } from '@/infra/postgres/account/entities/Account'
 import { AccountValidatorRepository } from '@/data/protocols/account-validator-repository'
 
 export class AccountValidatorDatabaseRepository implements AccountValidatorRepository {

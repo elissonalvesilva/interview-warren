@@ -1,6 +1,6 @@
 import { getConnection } from 'typeorm'
 
-import { Account } from '@/infra/postgres/account/models/Account'
+import { Account } from '@/infra/postgres/account/entities/Account'
 import { PostgresHelper } from '@/infra/postgres/helpers/postgres-helper'
 import { AccountValidatorDatabaseRepository } from '@/infra/postgres/account/account-validator-repository/account'
 
