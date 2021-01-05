@@ -1,5 +1,5 @@
 import { DoWithdrawModel } from '@/domain/usecases/withdraw/DoWithdraw'
-import { DbDoWithdraw } from './db-do-withdraw'
+import { DbDoWithdraw } from '@/data/usecases/withdraw/db-do-withdraw'
 import { DoWithdrawRepository } from '@/data/protocols/do-withdraw-repository'
 import { AccountModel } from '@/domain/models/account/Account'
 

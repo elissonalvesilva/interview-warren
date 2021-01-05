@@ -47,7 +47,7 @@ const makeSut = (): SutType => {
   return { sut, accountValidatorStub, doWithdrawStub }
 }
 
-describe('Payment Controller', () => {
+describe('Stament Controller', () => {
   describe('Validate Params', () => {
     it('Should return 400 if no account origin is provided', async () => {
       const { sut } = makeSut()
