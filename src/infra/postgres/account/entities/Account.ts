@@ -4,10 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm'
 
 import { Customer } from '@/infra/postgres/customer/entities/Customer'
+import { History } from '@/infra/postgres/history/entities/History'
 
 @Entity('account')
 export class Account {
@@ -22,7 +24,10 @@ export class Account {
   @Column()
   type: number
 
-  @Column()
+  @Column({
+    type: 'float',
+    default: 0.0
+  })
   balance: number
 
   @CreateDateColumn()
@@ -33,4 +38,7 @@ export class Account {
 
   @ManyToOne(type => Customer, accounts => Account)
   customer: Customer
+
+  @OneToMany(type => History, account => Account)
+  histories: History[]
 }
