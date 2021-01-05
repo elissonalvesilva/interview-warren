@@ -3,5 +3,5 @@ import { Router } from 'express'
 import { makeStatementController } from '@/main/factories/statement'
 
 export default (router: Router): void => {
-  router.post('/payment', adaptRoute(makeStatementController()))
+  router.post('/statement', adaptRoute(makeStatementController()))
 }
