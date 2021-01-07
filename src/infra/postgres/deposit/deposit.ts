@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account/Account'
+import { AccountDepositModel } from '@/domain/models/deposit/Account'
 import { Repository, getRepository } from 'typeorm'
 
 import { DoDepositRepository } from '@/data/protocols/do-deposit-repository'
@@ -12,20 +12,51 @@ export class DoDepositDatabaseRepository implements DoDepositRepository {
     this.ormRepository = getRepository(Account)
   }
 
-  async deposit (deposit: DoDepositModel): Promise<AccountModel> {
-    const lastValue = await this.ormRepository.findOne({
+  async deposit (deposit: DoDepositModel): Promise<AccountDepositModel> {
+    const accountOrigin = await this.ormRepository.findOne({
+      where: {
+        accountNumber: deposit.accountOrigin
+      }
+    })
+
+    const accountDestination = await this.ormRepository.findOne({
       where: {
         accountNumber: deposit.accountDestination
       }
     })
-    const actualValue = lastValue.balance + deposit.value
+
+    const newBalanceAccountOrigin = accountOrigin.balance - deposit.value
+
+    const newBalanceAccountDestination = accountDestination.balance + deposit.value
+
+    /**
+     * Update account origin balance
+     */
     await this.ormRepository
       .createQueryBuilder()
       .update(Account)
-      .set({ balance: actualValue })
+      .set({ balance: newBalanceAccountOrigin })
+      .where('accountNumber = :accountNumber', { accountNumber: deposit.accountOrigin })
+      .execute()
+
+    /**
+     * Update account destination balance
+     */
+    await this.ormRepository
+      .createQueryBuilder()
+      .update(Account)
+      .set({ balance: newBalanceAccountDestination })
       .where('accountNumber = :accountNumber', { accountNumber: deposit.accountDestination })
       .execute()
-    const response = Object.assign(lastValue, { balance: actualValue })
+
+    const response = {
+      accountOrigin,
+      accountDestination
+    }
+
+    Object.assign(response.accountOrigin, { balance: newBalanceAccountOrigin })
+    Object.assign(response.accountDestination, { balance: newBalanceAccountDestination })
+
     return response
   }
 }

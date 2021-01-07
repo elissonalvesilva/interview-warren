@@ -14,19 +14,19 @@ export class StatementController implements Controller {
         'accountOrigin'
       ]
       for (const field of requiredFields) {
-        if (!request.body[field]) {
+        if (!request[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const { accountOrigin } = request.body
+      const { accountOrigin } = request
       const isValidAccountOrigin = await this.accountValidator.isValid(accountOrigin)
 
       if (!isValidAccountOrigin) {
         return badRequest(new InvalidParamError('accountOrigin'))
       }
 
-      const statement = await this.doStatement.statement(request.body)
+      const statement = await this.doStatement.statement(request)
 
       return successResponse(statement)
     } catch (error) {

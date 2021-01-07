@@ -36,9 +36,9 @@ export class Account {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @ManyToOne(type => Customer, accounts => Account)
+  @ManyToOne(() => Customer, customer => customer.accounts)
   customer: Customer
 
-  @OneToMany(type => History, account => Account)
+  @OneToMany(() => History, history => history.account)
   histories: History[]
 }

@@ -5,6 +5,6 @@ PostgresHelper
   .then(async () => {
     const app = (await import('./config/app')).default
 
-    app.listen(process.env.port, () => console.log(`Server running at: ${process.env.port}`))
+    app.listen(process.env.APP_PORT, () => console.log(`Server running at: ${process.env.APP_PORT}`))
   })
   .catch(console.error)

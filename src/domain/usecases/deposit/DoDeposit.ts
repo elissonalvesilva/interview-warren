@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account/Account'
+import { AccountDepositModel } from '@/domain/models/deposit/Account'
 
 export interface DoDepositModel {
   accountOrigin: Number
@@ -9,5 +9,5 @@ export interface DoDepositModel {
 }
 
 export interface DoDeposit {
-  deposit: (deposit: DoDepositModel) => Promise<AccountModel>
+  deposit: (deposit: DoDepositModel) => Promise<AccountDepositModel>
 }

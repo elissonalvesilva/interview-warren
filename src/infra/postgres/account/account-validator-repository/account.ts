@@ -10,7 +10,7 @@ export class AccountValidatorDatabaseRepository implements AccountValidatorRepos
     this.ormRepository = getRepository(Account)
   }
 
-  async isValid (accountNumber: Number): Promise<boolean> {
+  async isValid (accountNumber: number): Promise<boolean> {
     const accountRepository = await this.ormRepository.find({
       where: {
         accountNumber

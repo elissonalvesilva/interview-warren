@@ -18,12 +18,12 @@ export class DepositController implements Controller {
         'value'
       ]
       for (const field of requiredFields) {
-        if (!request.body[field]) {
+        if (!request[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const { accountOrigin, accountDestination, value } = request.body
+      const { accountOrigin, accountDestination, value } = request
       if (typeof accountOrigin !== 'number' || typeof accountDestination !== 'number') {
         return badRequest(new InvalidParamError('accountOrigin and accountDestination must to be a number'))
       }
@@ -43,7 +43,7 @@ export class DepositController implements Controller {
         return badRequest(new InvalidParamError('accountOrigin'))
       }
 
-      const deposit = await this.doDeposit.deposit(request.body)
+      const deposit = await this.doDeposit.deposit(request)
 
       return successResponse(deposit)
     } catch (error) {

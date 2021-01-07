@@ -16,12 +16,12 @@ export class WithdrawController implements Controller {
         'value'
       ]
       for (const field of requiredFields) {
-        if (!request.body[field]) {
+        if (!request[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const { accountOrigin, value } = request.body
+      const { accountOrigin, value } = request
 
       if (typeof value !== 'number') {
         return badRequest(new InvalidParamError('value'))
@@ -33,7 +33,7 @@ export class WithdrawController implements Controller {
         return badRequest(new InvalidParamError('accountOrigin'))
       }
 
-      const withdraw = await this.doWithdraw.withdraw(request.body)
+      const withdraw = await this.doWithdraw.withdraw(request)
 
       return successResponse(withdraw)
     } catch (error) {
