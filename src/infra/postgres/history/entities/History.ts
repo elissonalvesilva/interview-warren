@@ -44,6 +44,6 @@ export class History {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @ManyToOne(type => Account, histories => History)
+  @ManyToOne(() => Account, account => account.histories)
   account: Account
 }
