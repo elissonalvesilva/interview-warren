@@ -10,7 +10,7 @@
     "test:staged": "npm run test:verbose -- --findRelatedTests",
     "test:unit": "npm test -- -c jest-unit-config.js",
     "test:e2e": "npm test -- -c jest-integration-config.js",
-    "test:ci": "npm test -- --coverage",
+    "test:ci": "npm run test:unit -- --coverage && npm run test:e2e",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "release": "npm test -- && standard-version",
     "seeds:run": "ts-node-dev -r tsconfig-paths/register ./src/database/seeders/customer-seed.ts"
