@@ -52,7 +52,6 @@ describe('Statement Controller', () => {
     it('Should return 400 if no account origin is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {}
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -66,9 +65,7 @@ describe('Statement Controller', () => {
         .mockReturnValueOnce(Promise.resolve(false))
 
       const httpRequest = {
-        body: {
-          accountOrigin: '10000'
-        }
+        accountOrigin: '10000'
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -78,7 +75,7 @@ describe('Statement Controller', () => {
     it('Should return 200 if all values is provided and get a statement', async () => {
       const { sut, doStatementStub } = makeSut()
       const httpRequest = {
-        body: { accountOrigin: 10000 }
+        accountOrigin: 10000
       }
 
       jest.spyOn(doStatementStub, 'statement').mockReturnValueOnce(new Promise(resolve => resolve(fakeStatementResponse)))

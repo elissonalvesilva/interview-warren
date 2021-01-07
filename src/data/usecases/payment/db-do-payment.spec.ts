@@ -3,6 +3,8 @@ import { DoPaymentRepository } from '@/data/protocols/do-payment-repository'
 import { AccountModel } from '@/domain/models/account/Account'
 import { DoPaymentModel } from '@/domain/usecases/payment/DoPayment'
 
+import MockDate from 'mockdate'
+
 const makeFakeAccount = (): AccountModel => {
   return {
     id: '1',
@@ -47,6 +49,14 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DB Do Payment Use Case', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   it('Should call DoPaymentRepository with correct values ', async () => {
     const { sut, doPaymentRepositoryStub } = makeSut()
     const spyRepository = jest.spyOn(doPaymentRepositoryStub, 'payment')

@@ -20,6 +20,7 @@ const makeFakeAccount = (): object => {
   return {
     accountNumber: 1,
     type: 1,
+    lastBalance,
     balance: lastBalance
   }
 }

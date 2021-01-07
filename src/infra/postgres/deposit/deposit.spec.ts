@@ -4,7 +4,8 @@ import { PostgresHelper } from '@/infra/postgres/helpers/postgres-helper'
 import { DoDepositDatabaseRepository } from '@/infra/postgres/deposit/deposit'
 import { DoDepositModel } from '@/domain/usecases/deposit/DoDeposit'
 
-const lastBalance = 100
+const lastBalanceOrigin = 80
+const lastBalanceDestination = 100
 
 const makeFakeDepositAccount = (): DoDepositModel => {
   return {
@@ -16,12 +17,20 @@ const makeFakeDepositAccount = (): DoDepositModel => {
   }
 }
 
-const makeFakeAccount = (): object => {
-  return {
-    accountNumber: 2,
-    type: 1,
-    balance: lastBalance
-  }
+const makeFakeAccounts = (): object[] => {
+  const accounts = [
+    {
+      accountNumber: 1,
+      type: 1,
+      balance: lastBalanceOrigin
+    },
+    {
+      accountNumber: 2,
+      type: 1,
+      balance: lastBalanceDestination
+    }
+  ]
+  return accounts
 }
 
 const makeSut = (): DoDepositDatabaseRepository => {
@@ -33,26 +42,34 @@ describe('Do Deposit Database Repository', () => {
     await PostgresHelper.clear()
   })
 
-  it('Should deposit change value with a deposit', async () => {
+  it('Should deposit change value from origin account and destination account with a deposit', async () => {
     const sut = makeSut()
     await getConnection()
       .createQueryBuilder()
       .insert()
       .into(Account)
-      .values(makeFakeAccount())
+      .values(makeFakeAccounts())
       .execute()
 
     const fakeDepositAccount = makeFakeDepositAccount()
     await sut.deposit(fakeDepositAccount)
 
-    const response = await getConnection()
+    const accountOrigin = await getConnection()
+      .getRepository(Account)
+      .createQueryBuilder('account')
+      .where('account.accountNumber = :accountNumber', { accountNumber: fakeDepositAccount.accountOrigin })
+      .getOne()
+
+    const accountDestination = await getConnection()
       .getRepository(Account)
       .createQueryBuilder('account')
       .where('account.accountNumber = :accountNumber', { accountNumber: fakeDepositAccount.accountDestination })
       .getOne()
 
-    const newBalance = fakeDepositAccount.value + lastBalance
+    const newAccountDestinationBalance = lastBalanceDestination + fakeDepositAccount.value
+    const newAccountOriginBalance = lastBalanceOrigin - fakeDepositAccount.value
 
-    expect(response.balance).toEqual(newBalance)
+    expect(accountOrigin.balance).toEqual(newAccountOriginBalance)
+    expect(accountDestination.balance).toEqual(newAccountDestinationBalance)
   })
 })

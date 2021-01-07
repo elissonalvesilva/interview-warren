@@ -52,11 +52,9 @@ describe('Payment Controller', () => {
     it('Should return 400 if no account origin is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
-        }
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 2.45
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -65,12 +63,10 @@ describe('Payment Controller', () => {
     it('Should return 400 if no code is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 1000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
-        }
+        accountOrigin: 1000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 2.45
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -79,12 +75,10 @@ describe('Payment Controller', () => {
     it('Should return 400 if no created date is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 2.45
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -93,12 +87,10 @@ describe('Payment Controller', () => {
     it('Should return 400 if no send date is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        value: 2.45
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -107,12 +99,10 @@ describe('Payment Controller', () => {
     it('Should return 400 if no value is provided', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30')
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30')
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -121,13 +111,11 @@ describe('Payment Controller', () => {
     it('Should return 400 if value is equals to 0', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 0
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 0
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -136,13 +124,11 @@ describe('Payment Controller', () => {
     it('Should return 400 if value is not a number', async () => {
       const { sut } = makeSut()
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 'adasd'
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 'adasd'
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -155,13 +141,11 @@ describe('Payment Controller', () => {
         .mockReturnValueOnce(Promise.resolve(false))
 
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 2130500,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: 2.45
-        }
+        accountOrigin: 10000,
+        code: 2130500,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: 2.45
       }
 
       const httResponse = await sut.handle(httpRequest)
@@ -173,13 +157,11 @@ describe('Payment Controller', () => {
 
       const lastValue = 10
       const httpRequest = {
-        body: {
-          accountOrigin: 10000,
-          code: 90000,
-          createdDate: new Date('2020-09-09 15:30:30'),
-          sendDate: new Date('2020-09-09 15:30:30'),
-          value: lastValue
-        }
+        accountOrigin: 10000,
+        code: 90000,
+        createdDate: new Date('2020-09-09 15:30:30'),
+        sendDate: new Date('2020-09-09 15:30:30'),
+        value: lastValue
       }
       const actualValue = fakePaymentResponse.balance - lastValue
       Object.assign(fakePaymentResponse, { balance: actualValue })

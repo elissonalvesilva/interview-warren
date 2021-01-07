@@ -16,7 +16,7 @@ const makeSut = (): AccountValidatorDatabaseRepository => {
   return new AccountValidatorDatabaseRepository()
 }
 
-describe.only('Account Validator Database Repository', () => {
+describe('Account Validator Database Repository', () => {
   beforeEach(async () => {
     await PostgresHelper.clear()
   })

@@ -1,17 +1,26 @@
 import { DbDoDeposit } from '@/data/usecases/deposit/db-do-deposit'
 import { DoDepositRepository } from '@/data/protocols/do-deposit-repository'
-import { AccountModel } from '@/domain/models/account/Account'
 import { DoDepositModel } from '@/domain/usecases/deposit/DoDeposit'
 
-const makeFakeAccount = (): AccountModel => {
-  return {
-    id: '1',
-    accountNumber: 2,
-    type: 1,
-    balance: 2,
-    createdAt: new Date('2020-01-01'),
-    updatedAt: new Date('2020-01-01')
+import MockDate from 'mockdate'
+import { AccountDepositModel } from '@/domain/models/deposit/Account'
+
+const makeFakeResponseDeposit = (): AccountDepositModel => {
+  const fakeResponseAccount = {
+    accountOrigin: {
+      id: '60503e92-7812-48ab-9c7d-7994e605d15b',
+      accountNumber: 1,
+      type: 1,
+      balance: 950
+    },
+    accountDestination: {
+      id: '05571a3a-d8d9-47a3-917a-4600ecbb8df0',
+      accountNumber: 2,
+      type: 1,
+      balance: 1170
+    }
   }
+  return fakeResponseAccount
 }
 
 const makeFakeDepositAccount = (): DoDepositModel => {
@@ -26,8 +35,8 @@ const makeFakeDepositAccount = (): DoDepositModel => {
 
 const makeDoDepositRepository = (): DoDepositRepository => {
   class DoDepositRepositoryStub implements DoDepositRepository {
-    async deposit (deposit: DoDepositModel): Promise<AccountModel> {
-      return new Promise(resolve => resolve(makeFakeAccount()))
+    async deposit (deposit: DoDepositModel): Promise<AccountDepositModel> {
+      return new Promise(resolve => resolve(makeFakeResponseDeposit()))
     }
   }
 
@@ -47,6 +56,13 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DB Do Deposit Use Case', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
   it('Should call DoDepositRepository with correct values ', async () => {
     const { sut, doDepositRepositoryStub } = makeSut()
     const spyRepository = jest.spyOn(doDepositRepositoryStub, 'deposit')
